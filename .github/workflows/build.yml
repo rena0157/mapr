@@ -17,8 +17,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-      env: 
-        NUGET_API_KEY: ${{secrets.NUGET_API_KEY}}
+
         
     - name: Setup .NET 5.0
       uses: actions/setup-dotnet@v1
@@ -29,4 +28,6 @@ jobs:
       run: ./build.sh
       
     - name: Nuget Push
-      run: dotnet nuget push ./output/*.nupkg -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push ./output/*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_AUTH_TOKEN
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
