@@ -23,9 +23,6 @@ jobs:
       with:
         dotnet-version: 5.0.x
     
-    - name: Nuget location
-      run: ls /home/runner/.nuget/packages/
-    
     - name: Nuke Build
       run: /bin/bash ./build.sh
 
