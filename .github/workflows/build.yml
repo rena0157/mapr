@@ -1,4 +1,4 @@
-name: .NET
+name: Mapr Build
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
         dotnet-version: 5.0.x
     
     - name: Nuke Build
-      run: dotnet restore
+      run: dotnet restore ./build/
 
     - name: Nuget location
       run: ls /home/runner/.nuget/packages/
