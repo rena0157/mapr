@@ -22,6 +22,12 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-        
+    
+    - name: Nuget location
+      run: ls /home/runner/.nuget/packages/
+    
     - name: Nuke Build
       run: /bin/bash ./build.sh
+
+    - name: Nuget location
+      run: ls /home/runner/.nuget/packages/
