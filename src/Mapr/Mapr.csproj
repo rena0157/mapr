@@ -5,4 +5,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageId>Mapr</PackageId>
+    <Authors>Adam Renaud</Authors>
+    <Description>
+      A simple object to object mapper, no magic.
+    </Description>
+  </PropertyGroup>
+  
 </Project>

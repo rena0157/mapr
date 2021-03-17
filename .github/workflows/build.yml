@@ -25,3 +25,6 @@ jobs:
 
     - name: Nuke
       run: ./build.sh
+      
+    - name: Nuget Push
+      run: dotnet nuget push ./output/*.nupkg
