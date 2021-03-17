@@ -27,4 +27,4 @@ jobs:
       run: dotnet restore ./build/
     
     - name: Nuke Build
-      run: ./build.sh
+      run: /home/runner/.dotnet/dotnet /home/runner/.nuget/packages/gitversion.tool/5.5.1/tools/netcoreapp3.1/any/gitversion.dll /home/runner/work/
