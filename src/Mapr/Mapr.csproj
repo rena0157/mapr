@@ -3,14 +3,19 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
+
   </PropertyGroup>
 
   <PropertyGroup>
+    <Title>Mapr</Title>
     <PackageId>Mapr</PackageId>
     <Authors>Adam Renaud</Authors>
-    <Description>
-      A simple object to object mapper, no magic.
-    </Description>
+    <Description>A simple object to object mapper, no magic.</Description>
+    <PackageProjectUrl>https://github.com/rena0157/mapr</PackageProjectUrl>
+    <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/rena0157/mapr</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Mappr;AutoMapper</PackageTags>
   </PropertyGroup>
   
 </Project>
