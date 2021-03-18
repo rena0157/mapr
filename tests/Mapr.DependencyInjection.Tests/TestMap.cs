@@ -5,13 +5,13 @@
         /// <inheritdoc />
         public int Map(string source)
         {
-            return 0;
+            return int.Parse(source);
         }
 
         /// <inheritdoc />
         public string Map(int source)
         {
-            return "";
+            return source.ToString();
         }
     }
 }

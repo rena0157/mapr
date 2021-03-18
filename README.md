@@ -29,18 +29,14 @@ TestMap.cs
 // a map between int and string as well as a map between string and int.
 public class TestMap : IMap<string, int>, IMap<int, string>
 {
-    // maps the string source to an int.
     public int Map(string source)
     {
-        // insert custom mapping here.
-        return 0;
+        return int.Parse(source);
     }
 
-    // maps the int source to a string.
     public string Map(int source)
     {
-        // insert custom mapping here.
-        return "";
+        return source.ToString();
     }
 }
 
@@ -52,9 +48,9 @@ Service Collection Setup
 
 ```cs
 
-var serviceCollection = new ServiceCollection();
+var services = new ServiceCollection();
 
-serviceCollection.AddMapr(config =>
+services.AddMapr(config =>
 {
     // to add specific type maps.
     config.AddMap<string, int, TestMap>()
@@ -68,8 +64,18 @@ serviceCollection.AddMapr(config =>
 
 });
 
-var serviceProvider = serviceCollection.BuildServiceProvider();
+var provider = services.BuildServiceProvider();
 
-var mapper = serviceProvider.GetService<IMapper>();
+// Get the mapper from the service provider.
+var mapper = provider.GetService<IMapper>();
+
+var testString = "2";
+var testInt = 10;
+
+// will return the int: 2
+var mappedStringToInt = mapper.Map<string, int>(testString);
+
+// will return the string: "10"
+var mappedIntToString = mapper.Map<int, string>(testInt);
 
 ```
