@@ -1,5 +1,7 @@
+using System.IO;
 using Nuke.Common;
 using Nuke.Common.CI;
+using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
@@ -21,7 +23,10 @@ class Build : NukeBuild
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
     [Parameter]
-    readonly string ApiKey;
+    readonly string NugetApiKey;
+
+    [Parameter]
+    readonly string GitHubToken;
     
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
@@ -91,9 +96,17 @@ class Build : NukeBuild
         .DependsOn(Pack)
         .Executes(() =>
         {
-            DotNetNuGetPush(p => p
-                .SetTargetPath(OutputDirectory / "*.nupkg")
-                .SetApiKey(ApiKey)
-                .SetSource("https://api.nuget.org/v3/index.json"));
+            if (GitRepository.IsOnDevelopBranch())
+            {
+                DotNetNuGetPush(p => p
+                    .SetSource("github")
+                    .SetApiKey(NugetApiKey));
+            }
+            else if (GitRepository.IsOnMasterBranch())
+            {
+                DotNetNuGetPush(p => p
+                    .SetSource("https://api.nuget.org/v3/index.json")
+                    .SetApiKey(NugetApiKey));
+            }
         });
 }

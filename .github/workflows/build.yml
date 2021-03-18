@@ -25,9 +25,7 @@ jobs:
         dotnet-version: 5.0.x
 
     - name: Nuke
-      run: ./build.sh
-      
-    - name: Nuget Push
-      run: dotnet nuget push ./output/*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_AUTH_TOKEN
+      run: ./build.sh publish --github-token $GITHUB_TOKEN --nuget-api-key $NUGET_AUTH_TOKEN
       env:
         NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
