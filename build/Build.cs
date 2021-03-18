@@ -95,7 +95,7 @@ class Build : NukeBuild
         .DependsOn(Pack)
         .Executes(() =>
         {
-            if (GitRepository.IsOnDevelopBranch())
+            if (GitRepository.IsOnDevelopBranch() || GitRepository.IsOnReleaseBranch())
             {
                 DotNetNuGetPush(p => p
                     .SetTargetPath(OutputDirectory / "*.nupkg")
