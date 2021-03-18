@@ -100,7 +100,7 @@ class Build : NukeBuild
             {
                 DotNetNuGetPush(p => p
                     .SetSource("github")
-                    .SetApiKey(NugetApiKey));
+                    .SetApiKey(GitHubToken));
             }
             else if (GitRepository.IsOnMasterBranch())
             {
