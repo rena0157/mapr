@@ -9,6 +9,7 @@ using Nuke.Common.ProjectModel;
 using Nuke.Common.Tools.Coverlet;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
+using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
@@ -103,12 +104,16 @@ class Build : NukeBuild
                     .SetSource("https://nuget.pkg.github.com/rena0157/index.json")
                     .SetApiKey(GitHubToken));
             }
-            else if (GitRepository.IsOnMasterBranch())
+            else if (GitRepository.Branch?.EqualsOrdinalIgnoreCase("main") ?? false)
             {
                 DotNetNuGetPush(p => p
                     .SetTargetPath(OutputDirectory / "*.nupkg")
                     .SetSource("https://api.nuget.org/v3/index.json")
                     .SetApiKey(NugetApiKey));
+            }
+            else
+            {
+                Logger.Log(LogLevel.Normal, "No packages where released");
             }
         });
 }
