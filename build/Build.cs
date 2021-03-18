@@ -99,12 +99,14 @@ class Build : NukeBuild
             if (GitRepository.IsOnDevelopBranch())
             {
                 DotNetNuGetPush(p => p
-                    .SetSource("github")
+                    .SetTargetPath(OutputDirectory / "*.nupkg")
+                    .SetSource("https://nuget.pkg.github.com/rena0157/index.json")
                     .SetApiKey(GitHubToken));
             }
             else if (GitRepository.IsOnMasterBranch())
             {
                 DotNetNuGetPush(p => p
+                    .SetTargetPath(OutputDirectory / "*.nupkg")
                     .SetSource("https://api.nuget.org/v3/index.json")
                     .SetApiKey(NugetApiKey));
             }
