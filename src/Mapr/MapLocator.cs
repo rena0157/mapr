@@ -3,17 +3,18 @@ using Mapr.Exceptions;
 
 namespace Mapr
 {
+    /// <inheritdoc />
     public class MapLocator : IMapLocator
     {
-        private readonly MapFactory _typeMapFactory;
+        private readonly MapFactory _mapFactory;
 
         /// <summary>
         /// Initializes a new instance of <see cref="MapLocator"/>
         /// </summary>
-        /// <param name="typeMapFactory"></param>
-        public MapLocator(MapFactory typeMapFactory)
+        /// <param name="mapFactory">A delegate for locating maps.</param>
+        public MapLocator(MapFactory mapFactory)
         {
-            _typeMapFactory = typeMapFactory;
+            _mapFactory = mapFactory;
         }
 
         /// <inheritdoc />
@@ -23,7 +24,7 @@ namespace Mapr
 
             try
             {
-                if (_typeMapFactory(mapType) is not IMap<TSource, TDestination> typeMap)
+                if (_mapFactory(mapType) is not IMap<TSource, TDestination> typeMap)
                     throw new MapNotFoundException(mapType);
 
                 return typeMap;
