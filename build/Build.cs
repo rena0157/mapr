@@ -108,6 +108,11 @@ class Build : NukeBuild
                     .SetTargetPath(OutputDirectory / "*.nupkg")
                     .SetSource("https://api.nuget.org/v3/index.json")
                     .SetApiKey(NugetApiKey));
+                
+                DotNetNuGetPush(p => p
+                    .SetTargetPath(OutputDirectory / "*.nupkg")
+                    .SetSource("https://nuget.pkg.github.com/rena0157/index.json")
+                    .SetApiKey(GitHubToken));
             }
             else
             {
