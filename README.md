@@ -1,6 +1,20 @@
 # Mapr
 
+[![Mapr Build](https://github.com/rena0157/mapr/actions/workflows/build.yml/badge.svg)](https://github.com/rena0157/mapr/actions/workflows/build.yml)
+
 A simple object to object mapper without any of the magic configuration.
+
+## How to Install
+
+Release Version on [NuGet](https://www.nuget.org/packages/Mapr/)
+```
+dotnet add package Mapr --version xxx
+```
+
+Pre-Release Version (Alpha / Beta) on [GitHub](https://github.com/rena0157/mapr/packages/)
+```
+dotnet add package Mapr --version xxx
+```
 
 ## Why Mapr?
 
