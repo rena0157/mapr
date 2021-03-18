@@ -1,4 +1,4 @@
-name: .NET
+name: Mapr Build
 
 on:
   push:
@@ -12,10 +12,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
+    - uses: actions/checkout@v1
+    - name: Setup .NET 3.1
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+
+        
+    - name: Setup .NET 5.0
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Nuke Build
-      run: /bin/bash ./build.sh
+
+    - name: Nuke
+      run: ./build.sh publish --github-token $GITHUB_TOKEN --nuget-api-key $NUGET_AUTH_TOKEN
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
