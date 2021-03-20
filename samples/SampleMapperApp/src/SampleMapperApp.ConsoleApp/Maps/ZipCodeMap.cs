@@ -1,5 +1,5 @@
 ﻿using Mapr;
-using SampleMapperApp.ConsoleApp.Models;
+using SampleMapperApp.ConsoleApp.Domain;
 
 namespace SampleMapperApp.ConsoleApp.Maps
 {

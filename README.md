@@ -2,7 +2,7 @@
 
 [![Mapr Build](https://github.com/rena0157/mapr/actions/workflows/build.yml/badge.svg)](https://github.com/rena0157/mapr/actions/workflows/build.yml)
 
-A simple object to object mapper without any of the magic configuration.
+A simple mediator pattern based object to object mapper.
 
 ## How to Install
 
@@ -35,13 +35,13 @@ see Mapr.DependencyInjection for `IServiceCollection`.
 These `IMap` implementations are then loaded and injected using the DI container in the mapper whenever a 
 `Map<TSource, TDestination>(sourceObject)` is called.
 
-## Simple Types
+Here is an example of a mapper that converts from `string` to `int` and back.
 
-TestMap.cs
 ```cs
+// StringMapper.cs
 
 // a map between int and string as well as a map between string and int.
-public class TestMap : IMap<string, int>, IMap<int, string>
+public class StringMapper : IMap<string, int>, IMap<int, string>
 {
     public int Map(string source)
     {
@@ -56,11 +56,12 @@ public class TestMap : IMap<string, int>, IMap<int, string>
 
 ```
 
-## Service Collection Setup
-
-Service Collection Setup
+The above map then is set up in the service registration below.
 
 ```cs
+
+// Service Registration file
+// This could be in Startup.cs for an ASP.NET Project.
 
 var services = new ServiceCollection();
 
@@ -87,9 +88,13 @@ var testString = "2";
 var testInt = 10;
 
 // will return the int: 2
-var mappedStringToInt = mapper.Map<string, int>(testString);
+int mappedStringToInt = mapper.Map<string, int>(testString);
 
 // will return the string: "10"
-var mappedIntToString = mapper.Map<int, string>(testInt);
+string mappedIntToString = mapper.Map<int, string>(testInt);
 
 ```
+
+## More Complex Mapping
+
+See samples for more complex examples

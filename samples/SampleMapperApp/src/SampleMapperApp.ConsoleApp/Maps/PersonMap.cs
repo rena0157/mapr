@@ -1,6 +1,6 @@
 ﻿using Mapr;
-using SampleMapperApp.ConsoleApp.DtoModels;
-using SampleMapperApp.ConsoleApp.Models;
+using SampleMapperApp.ConsoleApp.DataModels;
+using SampleMapperApp.ConsoleApp.Domain;
 
 namespace SampleMapperApp.ConsoleApp.Maps
 {

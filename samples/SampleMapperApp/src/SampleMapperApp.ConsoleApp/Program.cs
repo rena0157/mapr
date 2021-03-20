@@ -2,8 +2,8 @@
 using Mapr;
 using Mapr.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using SampleMapperApp.ConsoleApp.DtoModels;
-using SampleMapperApp.ConsoleApp.Models;
+using SampleMapperApp.ConsoleApp.DataModels;
+using SampleMapperApp.ConsoleApp.Domain;
 
 
 var services = new ServiceCollection();

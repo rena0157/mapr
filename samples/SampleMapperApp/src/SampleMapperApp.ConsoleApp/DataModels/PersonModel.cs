@@ -1,4 +1,4 @@
-﻿namespace SampleMapperApp.ConsoleApp.DtoModels
+﻿namespace SampleMapperApp.ConsoleApp.DataModels
 {
     public class PersonModel
     {

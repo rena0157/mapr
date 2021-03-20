@@ -1,4 +1,4 @@
-﻿namespace SampleMapperApp.ConsoleApp.Models
+﻿namespace SampleMapperApp.ConsoleApp.Domain
 {
     public class ZipCode
     {
