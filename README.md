@@ -97,4 +97,4 @@ string mappedIntToString = mapper.Map<int, string>(testInt);
 
 ## More Complex Mapping
 
-See samples for more complex examples
+See [samples](samples/SampleMapperApp/README.md) for more complex examples
