@@ -13,7 +13,6 @@ namespace SampleMapperApp.ConsoleApp.Maps
             _mapper = mapper;
         }
         
-        /// <inheritdoc />
         public PersonModel Map(Person source)
         {
             return new PersonModel
@@ -27,7 +26,6 @@ namespace SampleMapperApp.ConsoleApp.Maps
             };
         }
 
-        /// <inheritdoc />
         public Person Map(PersonModel source)
         {
             // Convert the address model back to an address.

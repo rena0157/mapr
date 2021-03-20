@@ -13,14 +13,12 @@ namespace SampleMapperApp.ConsoleApp.Maps
             _mapper = mapper;
         }
         
-        /// <inheritdoc />
         public Address Map(AddressModel source)
         {
             var zipCode = _mapper.Map<string, ZipCode>(source.ZipCode);
             return new Address(source.StreetNumber, source.StreetName, zipCode, source.Country);
         }
 
-        /// <inheritdoc />
         public AddressModel Map((Address address, int personId) source)
         {
             var (address, personId) = source;
