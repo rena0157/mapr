@@ -28,15 +28,15 @@ namespace Mapr.Tests
         }
 
         [Fact]
-        public void Map_ShouldThrow_WhenPassedNull()
+        public void Map_ShouldNotThrow_WhenPassedNull()
         {
             var locator = Substitute.For<IMapLocator>();
 
             var mapper = new Mapper(locator);
 
-            Action act = () => mapper.Map<string?, string>(null);
+            Action act = () => mapper.Map<string?, string?>(null);
 
-            act.Should().Throw<ArgumentNullException>();
+            act.Should().NotThrow<ArgumentNullException>();
         }
     }
 }
