@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Mapr
+﻿namespace Mapr
 {
     /// <summary>
     /// Represents an implementation of <see cref="IMapper"/>
@@ -34,15 +32,9 @@ namespace Mapr
         /// <typeparam name="TSource">The type of the source object.</typeparam>
         /// <typeparam name="TDestination">The destination of the map.</typeparam>
         /// <returns>A new instance of type <typeparamref name="TDestination"/> mapped from the source object.</returns>
-        /// <exception cref="ArgumentNullException">Occurs when the source is null.</exception>
         public TDestination Map<TSource, TDestination>(TSource source)
         {
-            if (source is null)
-                throw new ArgumentNullException(nameof(source));
-
-            return _locator
-                .LocateMapFor<TSource, TDestination>()
-                .Map(source);
+            return _locator.LocateMapFor<TSource, TDestination>().Map(source);
         }
     }
 }
