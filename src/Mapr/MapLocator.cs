@@ -1,38 +1,37 @@
 ﻿using System;
 using Mapr.Exceptions;
 
-namespace Mapr
+namespace Mapr;
+
+/// <inheritdoc />
+public class MapLocator : IMapLocator
 {
-    /// <inheritdoc />
-    public class MapLocator : IMapLocator
+    private readonly MapFactory _mapFactory;
+
+    /// <summary>
+    /// Initializes a new instance of <see cref="MapLocator"/>
+    /// </summary>
+    /// <param name="mapFactory">A delegate for locating maps.</param>
+    public MapLocator(MapFactory mapFactory)
     {
-        private readonly MapFactory _mapFactory;
+        _mapFactory = mapFactory;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of <see cref="MapLocator"/>
-        /// </summary>
-        /// <param name="mapFactory">A delegate for locating maps.</param>
-        public MapLocator(MapFactory mapFactory)
+    /// <inheritdoc />
+    public IMap<TSource, TDestination> LocateMapFor<TSource, TDestination>()
+    {
+        var mapType = typeof(IMap<TSource, TDestination>);
+
+        try
         {
-            _mapFactory = mapFactory;
+            if (_mapFactory(mapType) is not IMap<TSource, TDestination> typeMap)
+                throw new MapNotFoundException(mapType);
+
+            return typeMap;
         }
-
-        /// <inheritdoc />
-        public IMap<TSource, TDestination> LocateMapFor<TSource, TDestination>()
+        catch (Exception ex)
         {
-            var mapType = typeof(IMap<TSource, TDestination>);
-
-            try
-            {
-                if (_mapFactory(mapType) is not IMap<TSource, TDestination> typeMap)
-                    throw new MapNotFoundException(mapType);
-
-                return typeMap;
-            }
-            catch (Exception ex)
-            {
-                throw new MapLocatorException(mapType, ex);
-            }
+            throw new MapLocatorException(mapType, ex);
         }
     }
 }
