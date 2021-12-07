@@ -1,16 +1,15 @@
 ﻿using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 
-namespace Mapr.Tests
-{
-    public class TestBed
-    {
-        protected TestBed()
-        {
-            Fixture = new Fixture()
-                .Customize(new AutoNSubstituteCustomization());
-        }
+namespace Mapr.Tests;
 
-        protected IFixture Fixture { get; }
+public class TestBed
+{
+    protected TestBed()
+    {
+        Fixture = new Fixture()
+            .Customize(new AutoNSubstituteCustomization());
     }
+
+    protected IFixture Fixture { get; }
 }
