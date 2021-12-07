@@ -1,13 +1,12 @@
-﻿namespace SampleMapperApp.ConsoleApp.Domain
+﻿namespace SampleMapperApp.ConsoleApp.Domain;
+
+public class ZipCode
 {
-    public class ZipCode
+    public ZipCode(string value)
     {
-        public ZipCode(string value)
-        {
-            // Validation...
-            Value = value;
-        }
-        
-        public string Value { get; }
+        // Validation...
+        Value = value;
     }
+        
+    public string Value { get; }
 }

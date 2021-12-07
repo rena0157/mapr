@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mapr" Version="0.2.0" />
-    <PackageReference Include="Mapr.DependencyInjection" Version="0.2.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Mapr" Version="1.0.0-alpha0001" />
+    <PackageReference Include="Mapr.DependencyInjection" Version="1.0.0-alpha0001" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
