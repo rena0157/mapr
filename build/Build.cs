@@ -24,9 +24,6 @@ class Build : NukeBuild
     [Parameter]
     readonly string NugetApiKey;
 
-    [Parameter]
-    readonly string GitHubToken;
-    
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
     [GitVersion(Framework = "netcoreapp3.1", UpdateBuildNumber = true)] readonly GitVersion GitVersion;
@@ -95,28 +92,9 @@ class Build : NukeBuild
         .DependsOn(Pack)
         .Executes(() =>
         {
-            if (GitRepository.IsOnDevelopBranch() || GitRepository.IsOnReleaseBranch())
-            {
-                DotNetNuGetPush(p => p
-                    .SetTargetPath(OutputDirectory / "*.nupkg")
-                    .SetSource("https://nuget.pkg.github.com/rena0157/index.json")
-                    .SetApiKey(GitHubToken));
-            }
-            else if (GitRepository.Branch?.EqualsOrdinalIgnoreCase("main") ?? false)
-            {
-                DotNetNuGetPush(p => p
-                    .SetTargetPath(OutputDirectory / "*.nupkg")
-                    .SetSource("https://api.nuget.org/v3/index.json")
-                    .SetApiKey(NugetApiKey));
-                
-                DotNetNuGetPush(p => p
-                    .SetTargetPath(OutputDirectory / "*.nupkg")
-                    .SetSource("https://nuget.pkg.github.com/rena0157/index.json")
-                    .SetApiKey(GitHubToken));
-            }
-            else
-            {
-                Logger.Log(LogLevel.Normal, "No packages where released");
-            }
+            DotNetNuGetPush(p => p
+                .SetTargetPath(OutputDirectory / "*.nupkg")
+                .SetSource("https://api.nuget.org/v3/index.json")
+                .SetApiKey(NugetApiKey));
         });
 }
