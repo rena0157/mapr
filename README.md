@@ -5,19 +5,11 @@
 A simple mediator pattern based object to object mapper.
 
 ## How to Install
-
 Release Version on [NuGet](https://www.nuget.org/packages/Mapr/)
 ```
 dotnet add package Mapr --version xxx
 ```
-
-Pre-Release Version (Alpha / Beta) on [GitHub](https://github.com/rena0157/mapr/packages/)
-```
-dotnet add package Mapr --version xxx
-```
-
 ## Why Mapr?
-
 - Does not rely on a naming contract for properties
 - Mapping of immutable objects.
 - Easily test and mock maps.
@@ -28,9 +20,8 @@ Although there are many mapping libraries out there, Mapr takes a different appr
 No Expression tree configuration or magic behind the scenes. Just a simple mapper.
 
 ## How does it work?
-
 In a nutshell, all inheritors of `IMap<TSource, TDestination>` are registered in a DI container, 
-see Mapr.DependencyInjection for `IServiceCollection`.
+see `Mapr.DependencyInjection` for `IServiceCollection` integration.
 
 These `IMap` implementations are then loaded and injected using the DI container in the mapper whenever a 
 `Map<TSource, TDestination>(sourceObject)` is called.
