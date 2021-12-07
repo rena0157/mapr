@@ -1,4 +1,7 @@
-﻿namespace Mapr
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Mapr
 {
     /// <summary>
     /// Represents an implementation of <see cref="IMapper"/>
@@ -35,6 +38,18 @@
         public TDestination Map<TSource, TDestination>(TSource source)
         {
             return _locator.LocateMapFor<TSource, TDestination>().Map(source);
+        }
+
+        /// <summary>
+        /// Maps the provided collection of <paramref name="source"/> objects to the provided type <typeparamref name="TDestination"/>.
+        /// </summary>
+        /// <param name="source">The objects that will be mapped</param>
+        /// <typeparam name="TSource">The type of the source objects.</typeparam>
+        /// <typeparam name="TDestination">The type of the destination objects.</typeparam>
+        /// <returns>A collection of objects mapped.</returns>
+        public IEnumerable<TDestination> Map<TSource, TDestination>(IEnumerable<TSource> source)
+        {
+            return source.Select(Map<TSource, TDestination>);
         }
     }
 }
