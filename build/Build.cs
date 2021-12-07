@@ -70,7 +70,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetTest(t => t
-                .SetCollectCoverage(true)
+                .EnableCollectCoverage()
                 .SetCoverletOutputFormat(CoverletOutputFormat.cobertura)
                 .SetProjectFile(Solution)
             );
