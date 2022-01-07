@@ -14,12 +14,24 @@ public class MapperConfigTests
         serviceCollection.AddMapr(_ => { });
 
         serviceCollection.Should()
-            .Contain(s => s.ServiceType == typeof(IMapper) && s.ImplementationType == typeof(Mapper));
+            .Contain(
+                s => s.ServiceType == typeof(IMapper) && 
+                     s.ImplementationType == typeof(Mapper) &&
+                     s.Lifetime == ServiceLifetime.Singleton
+            );
 
-        serviceCollection.Should().Contain(
-            s => s.ServiceType == typeof(IMapLocator) && s.ImplementationType == typeof(MapLocator));
+        serviceCollection.Should()
+            .Contain(
+                s => s.ServiceType == typeof(IMapLocator) && 
+                     s.ImplementationType == typeof(MapLocator) &&
+                     s.Lifetime == ServiceLifetime.Singleton
+            );
 
-        serviceCollection.Should().Contain(s => s.ServiceType == typeof(MapFactory));
+        serviceCollection.Should()
+            .Contain(
+                s => s.ServiceType == typeof(MapFactory) &&
+                     s.Lifetime == ServiceLifetime.Singleton
+            );
     }
 
     [Fact]
@@ -32,11 +44,26 @@ public class MapperConfigTests
             config.Scan(typeof(TestMap).Assembly);
         });
 
-        serviceCollection.Should().Contain(
-            s => s.ImplementationType == typeof(TestMap) && s.ServiceType == typeof(IMap<string, int>));
+        serviceCollection.Should()
+            .Contain(
+                s => s.ImplementationType == typeof(TestMap) && 
+                     s.ServiceType == typeof(IMap<string, int>) &&
+                     s.Lifetime == ServiceLifetime.Transient
+            );
 
-        serviceCollection.Should().Contain(
-            s => s.ImplementationType == typeof(TestMap) && s.ServiceType == typeof(IMap<int, string>));
+        serviceCollection.Should()
+            .Contain(
+                s => s.ImplementationType == typeof(TestMap) && 
+                     s.ServiceType == typeof(IMap<int, string>) &&
+                     s.Lifetime == ServiceLifetime.Transient
+            );
+        
+        serviceCollection.Should()
+            .Contain(
+                s => s.ImplementationType == typeof(TestSingletonMap) && 
+                     s.ServiceType == typeof(IMap<string, string>) &&
+                     s.Lifetime == ServiceLifetime.Singleton
+            );
     }
 
     [Fact]
@@ -49,15 +76,30 @@ public class MapperConfigTests
             config.Scan<TestMap>();
         });
 
-        serviceCollection.Should().Contain(
-            s => s.ImplementationType == typeof(TestMap) && s.ServiceType == typeof(IMap<string, int>));
+        serviceCollection.Should()
+            .Contain(
+                s => s.ImplementationType == typeof(TestMap) && 
+                     s.ServiceType == typeof(IMap<string, int>) &&
+                     s.Lifetime == ServiceLifetime.Transient
+            );
 
-        serviceCollection.Should().Contain(
-            s => s.ImplementationType == typeof(TestMap) && s.ServiceType == typeof(IMap<int, string>));
+        serviceCollection.Should()
+            .Contain(
+                s => s.ImplementationType == typeof(TestMap) && 
+                     s.ServiceType == typeof(IMap<int, string>) &&
+                     s.Lifetime == ServiceLifetime.Transient
+            );
+        
+        serviceCollection.Should()
+            .Contain(
+                s => s.ImplementationType == typeof(TestSingletonMap) && 
+                     s.ServiceType == typeof(IMap<string, string>) &&
+                     s.Lifetime == ServiceLifetime.Singleton
+            );
     }
 
     [Fact]
-    public void AddMap_ShouldAppMap()
+    public void AddMap_ShouldAddMap()
     {
         var serviceCollection = new ServiceCollection();
 
@@ -67,10 +109,36 @@ public class MapperConfigTests
                 .AddMap<int, string, TestMap>();
         });
 
-        serviceCollection.Should().Contain(
-            s => s.ImplementationType == typeof(TestMap) && s.ServiceType == typeof(IMap<string, int>));
+        serviceCollection.Should()
+            .Contain(
+                s => s.ImplementationType == typeof(TestMap) && 
+                     s.ServiceType == typeof(IMap<string, int>) &&
+                     s.Lifetime == ServiceLifetime.Transient
+            );
 
-        serviceCollection.Should().Contain(
-            s => s.ImplementationType == typeof(TestMap) && s.ServiceType == typeof(IMap<int, string>));
+        serviceCollection.Should()
+            .Contain(
+                s => s.ImplementationType == typeof(TestMap) && 
+                     s.ServiceType == typeof(IMap<int, string>) &&
+                     s.Lifetime == ServiceLifetime.Transient
+            );
+    }
+    
+    [Fact]
+    public void AddMap_ShouldAddSingletonMap_WhenAttributeIsPresent()
+    {
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection.AddMapr(config =>
+        {
+            config.AddMap<string, string, TestSingletonMap>();
+        });
+
+        serviceCollection.Should()
+            .Contain(
+                s => s.ImplementationType == typeof(TestSingletonMap) && 
+                     s.ServiceType == typeof(IMap<string, string>) &&
+                     s.Lifetime == ServiceLifetime.Singleton
+            );
     }
 }
