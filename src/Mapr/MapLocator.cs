@@ -25,7 +25,9 @@ public class MapLocator : IMapLocator
         try
         {
             if (_mapFactory(mapType) is not IMap<TSource, TDestination> typeMap)
+            {
                 throw new MapNotFoundException(mapType);
+            }
 
             return typeMap;
         }
