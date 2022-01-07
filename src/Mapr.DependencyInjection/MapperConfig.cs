@@ -25,7 +25,18 @@ public class MapperConfig : IMapperConfig
     /// <inheritdoc />
     public IMapperConfig AddMap<TSource, TDestination, TMap>() where TMap : class, IMap<TSource, TDestination>
     {
-        _services.AddTransient<IMap<TSource, TDestination>, TMap>();
+        var type = typeof(TMap);
+        var mapAttribute = type.GetCustomAttribute<MapAttribute>() ?? new MapAttribute();
+
+        if (mapAttribute.Lifetime == MapLifetime.Singleton)
+        {
+            _services.AddSingleton<IMap<TSource, TDestination>, TMap>();
+        }
+        else
+        {
+            _services.AddTransient<IMap<TSource, TDestination>, TMap>();
+        }
+        
         return this;
     }
 
@@ -56,8 +67,8 @@ public class MapperConfig : IMapperConfig
     private void RegisterDefaults()
     {
         _services.AddSingleton<IMapper, Mapper>();
-        _services.AddTransient<IMapLocator, MapLocator>();
-        _services.AddTransient<MapFactory>(provider => provider.GetService);
+        _services.AddSingleton<IMapLocator, MapLocator>();
+        _services.AddSingleton<MapFactory>(provider => provider.GetService);
     }
 
     private void RegisterType(Type type)
@@ -70,6 +81,17 @@ public class MapperConfig : IMapperConfig
             .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMap<,>));
 
         foreach (var i in interfaces)
-            _services.AddTransient(i, type);
+        {
+            var mapAttribute = type.GetCustomAttribute<MapAttribute>() ?? new MapAttribute();
+
+            if (mapAttribute.Lifetime == MapLifetime.Singleton)
+            {
+                _services.AddSingleton(i, type);
+            }
+            else
+            {
+                _services.AddTransient(i, type);
+            }
+        }
     }
 }
